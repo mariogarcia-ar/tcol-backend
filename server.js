@@ -4,7 +4,7 @@ let cors = require("cors");
 let bodyParser = require("body-parser");
 let dbConfig = require("./database/db");
 
-const studentRoute = require("./routes/student.route");
+const creditRoute = require("./routes/credit.route");
 
 // mongoose.set('useNewUrlParser', true);
 // mongoose.set('useFindAndModify', false);
@@ -24,7 +24,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({    extended: true }));
 app.use(cors());
-app.use('/students', studentRoute);
+app.use('/credits', creditRoute);
 
 // port
 const port = process.env.PORT || 4000;

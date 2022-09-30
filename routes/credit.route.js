@@ -2,10 +2,10 @@ let mongoose = require('mongoose'),
     express = require('express'),
     router = express.Router();
 
-let studentSchema = require("../models/Student");
+let creditSchema = require("../models/Credit");
 
-router.post( "/create-student", (req, res, next) =>{
-    studentSchema.create(req.body, (error, data) =>{
+router.post( "/create-credit", (req, res, next) =>{
+    creditSchema.create(req.body, (error, data) =>{
         if(error){
             return next(error);
         }else{
@@ -16,7 +16,7 @@ router.post( "/create-student", (req, res, next) =>{
 });
 
 router.get( "/", (req, res, next) =>{
-    studentSchema.find((error, data) =>{
+    creditSchema.find((error, data) =>{
         if(error){
             return next(error);
         }else{
@@ -26,9 +26,9 @@ router.get( "/", (req, res, next) =>{
 });
 
 router
-    .route("/update-student/:id")
+    .route("/update-credit/:id")
         .get((req, res, next)=>{
-            studentSchema.findById(req.params.id, (error,data)=>{
+            creditSchema.findById(req.params.id, (error,data)=>{
                 if(error){
                     return next(error);
                 }else{
@@ -37,19 +37,19 @@ router
             })
         })
         .put((req, res, next)=>{
-            studentSchema.findByIdAndUpdate(req.params.id, {$set: req.body},(error,data)=>{
+            creditSchema.findByIdAndUpdate(req.params.id, {$set: req.body},(error,data)=>{
                 if(error){
                     console.log(error);
                     return next(error);
                 }else{
                     res.json(data);
-                    console.log("Student updated succesfully!");
+                    console.log("Credit updated succesfully!");
                 }
             })
         });
 
-router.delete("/delete-student/:id",(req, res, next)=>{
-    studentSchema.findByIdAndRemove(req.params.id, (error,data)=>{
+router.delete("/delete-credit/:id",(req, res, next)=>{
+    creditSchema.findByIdAndRemove(req.params.id, (error,data)=>{
         if(error){
             console.log(error);
             return next(error);

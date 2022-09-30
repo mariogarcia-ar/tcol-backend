@@ -8,9 +8,9 @@
 	},
 	"item": [
 		{
-			"name": "{{api_url}}/students",
+			"name": "{{api_url}}/credits",
 			"request": {
-				"url": "{{api_url}}/students",
+				"url": "{{api_url}}/credits",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -19,9 +19,9 @@
 			"response": []
 		},
 		{
-			"name": "{{api_url}}/students",
+			"name": "{{api_url}}/credits",
 			"request": {
-				"url": "{{api_url}}/students/create-student",
+				"url": "{{api_url}}/credits/create-credit",
 				"method": "POST",
 				"header": [
 					{
@@ -39,9 +39,9 @@
 			"response": []
 		},
 		{
-			"name": "{{api_url}}/students",
+			"name": "{{api_url}}/credits",
 			"request": {
-				"url": "{{api_url}}/students/update-student/633695d196e818d43cb841d8",
+				"url": "{{api_url}}/credits/update-credit/633695d196e818d43cb841d8",
 				"method": "PUT",
 				"header": [
 					{
@@ -59,9 +59,9 @@
 			"response": []
 		},
 		{
-			"name": "{{api_url}}/students",
+			"name": "{{api_url}}/credits",
 			"request": {
-				"url": "{{api_url}}/students/delete-student/633696a596e818d43cb841df",
+				"url": "{{api_url}}/credits/delete-credit/633696a596e818d43cb841df",
 				"method": "DELETE",
 				"header": [
 					{
