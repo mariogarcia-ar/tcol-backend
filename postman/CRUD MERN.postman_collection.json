@@ -1,0 +1,79 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CRUD MERN",
+		"_postman_id": "f7df3669-56b1-b4ae-61da-b552eb392f27",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{api_url}}/students",
+			"request": {
+				"url": "{{api_url}}/students",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "{{api_url}}/students",
+			"request": {
+				"url": "{{api_url}}/students/create-student",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"mario2\",\n\t\"email\": \"mario2@garcia.com\",\n\t\"rollno\": \"1975\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "{{api_url}}/students",
+			"request": {
+				"url": "{{api_url}}/students/update-student/633695d196e818d43cb841d8",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"graciela\",\n\t\"email\": \"gachy@rios.com\",\n\t\"rollno\": \"1974\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "{{api_url}}/students",
+			"request": {
+				"url": "{{api_url}}/students/delete-student/633696a596e818d43cb841df",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
