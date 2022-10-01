@@ -7,10 +7,10 @@ const path = require('path');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../uploads'))
+        cb(null, path.join(__dirname, '../public/uploads'))
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now(); // + '-' + Math.round(Math.random())
+        const uniqueSuffix = Date.now();
         cb(null, file.fieldname + '-' + uniqueSuffix + '-' + file.originalname)
     }
 })
@@ -22,7 +22,7 @@ let creditSchema = require("../models/Credit");
 router.route("/create-credit")
     .post(upload.single("photo"), (req, res) =>{
         const body = req.body;
-        // console.log(req.file);
+
         const credit = new creditSchema({
             name: body.name,
             email: body.email,
@@ -31,12 +31,12 @@ router.route("/create-credit")
         });
 
         credit.save()
-            .then((savedCredit)=>{
-                res.json(savedCredit);
-            })
-            .catch((err)=>{
-                console.log(err.message)
-            })
+                .then((savedCredit)=>{
+                    res.json(savedCredit);
+                })
+                .catch((err)=>{
+                    console.log(err.message)
+                })
     });
 
 router.get( "/", (req, res, next) =>{
@@ -62,7 +62,7 @@ router
         })
         .put(upload.single("photo"), (req, res, next)=>{
             const body = req.body;
-            // console.log(req.file);
+
             const data = {
                 name: body.name,
                 email: body.email,
