@@ -2,6 +2,11 @@ let mongoose = require('mongoose'),
     express = require('express'),
     router = express.Router();
 
+const {ipfsClient, urlSource, create} = require('ipfs-http-client');
+const projectId = process.env.IPFS_PROJECT_ID;
+const projectSecret = process.env.IPFS_PROJECT_SECRET;
+const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
+
 const multer = require('multer');
 const path = require('path');
 
@@ -22,16 +27,26 @@ let creditSchema = require("../models/Credit");
 router.route("/create-credit")
     .post(upload.single("photo"), (req, res) =>{
         const body = req.body;
-
+// console.log(req.file.path);
         const credit = new creditSchema({
             name: body.name,
             email: body.email,
             rollno: body.rollno,
             photo: req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename,
+            ipfs: 'vamos a meter el hash'
         });
 
         credit.save()
-                .then((savedCredit)=>{
+                .then( async savedCredit =>{
+                    console.log('credit',credit, savedCredit, savedCredit._id);
+
+                    // guardamos el ipfs
+                    let client = create({url: process.env.IPFS_URL,headers:{authorization}});
+                    const ipfs_file = await client.add(urlSource(credit.photo));
+                    // console.log('ipfs_file', ipfs_file, "https://ipfs.io/ipfs/"+ipfs_file.cid);
+                    savedCredit.ipfs = "https://ipfs.io/ipfs/"+ipfs_file.cid;
+                    await savedCredit.save();
+
                     res.json(savedCredit);
                 })
                 .catch((err)=>{
