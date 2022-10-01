@@ -1,0 +1,2 @@
+DELETE http://34.123.18.52:4000/credits/delete-credit/63372bacb45560eb18aac547
+Content-Type: application/json

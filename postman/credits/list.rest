@@ -1,0 +1,2 @@
+GET http://34.123.18.52:4000/credits
+Content-Type: application/json

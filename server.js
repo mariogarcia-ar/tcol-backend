@@ -1,29 +1,24 @@
+require('dotenv').config()
+
 let express = require("express");
 let mongoose = require("mongoose");
 let cors = require("cors");
-let bodyParser = require("body-parser");
-let dbConfig = require("./database/db");
-
+const path = require('path');
 const creditRoute = require("./routes/credit.route");
 
-// mongoose.set('useNewUrlParser', true);
-// mongoose.set('useFindAndModify', false);
-// mongoose.set('useCreateIndex', true);
-// mongoose.set('useUnifiedTopology', true);
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.db).then(()=>{
+mongoose.connect(process.env.MONGODB_URI).then(()=>{
     console.log("Database Successfully connected!");
 }, error =>{
     console.log("Colud not connect to dababase"+error);
 });
 
 const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({    extended: true }));
+app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/credits', creditRoute);
 
 // port

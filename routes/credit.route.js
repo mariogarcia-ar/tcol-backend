@@ -2,18 +2,42 @@ let mongoose = require('mongoose'),
     express = require('express'),
     router = express.Router();
 
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../uploads'))
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now(); // + '-' + Math.round(Math.random())
+        cb(null, file.fieldname + '-' + uniqueSuffix + '-' + file.originalname)
+    }
+})
+
+const upload = multer({ storage: storage })
+
 let creditSchema = require("../models/Credit");
 
-router.post( "/create-credit", (req, res, next) =>{
-    creditSchema.create(req.body, (error, data) =>{
-        if(error){
-            return next(error);
-        }else{
-            console.log(data);
-            res.json(data);
-        }
+router.route("/create-credit")
+    .post(upload.single("photo"), (req, res) =>{
+        const body = req.body;
+        // console.log(req.file);
+        const credit = new creditSchema({
+            name: body.name,
+            email: body.email,
+            rollno: body.rollno,
+            photo: req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename,
+        });
+
+        credit.save()
+            .then((savedCredit)=>{
+                res.json(savedCredit);
+            })
+            .catch((err)=>{
+                console.log(err.message)
+            })
     });
-});
 
 router.get( "/", (req, res, next) =>{
     creditSchema.find((error, data) =>{
@@ -36,8 +60,21 @@ router
                 }
             })
         })
-        .put((req, res, next)=>{
-            creditSchema.findByIdAndUpdate(req.params.id, {$set: req.body},(error,data)=>{
+        .put(upload.single("photo"), (req, res, next)=>{
+            const body = req.body;
+            // console.log(req.file);
+            const data = {
+                name: body.name,
+                email: body.email,
+                rollno: body.rollno,
+            };
+
+            if (req.file){
+                data.photo = req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename;
+            }
+            
+            // creditSchema.findByIdAndUpdate(req.params.id, {$set: req.body},(error,data)=>{
+            creditSchema.findByIdAndUpdate(req.params.id, data,(error,data)=>{
                 if(error){
                     console.log(error);
                     return next(error);

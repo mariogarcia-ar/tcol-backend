@@ -1,0 +1,2 @@
+GET http://34.123.18.52:4000/credits/update-credit/633721fd3db874d37b364468
+Content-Type: application/json

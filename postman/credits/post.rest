@@ -1,0 +1,8 @@
+POST http://34.123.18.52:4000/credits/create-credit
+Content-Type: application/json
+
+{
+    "name": "Mario Garcia",
+    "email": "mario@g.com",
+    "rollno": 1975
+}
